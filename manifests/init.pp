@@ -71,7 +71,7 @@
 # $ssl::                          Enable and set require_ssl in Foreman settings (note: requires passenger, SSL does not apply to kickstarts)
 #
 # $custom_repo::                  No need to change anything here by default
-#                                 if set to true, no repo will be added by this module, letting you 
+#                                 if set to true, no repo will be added by this module, letting you
 #                                 set it to some custom location.
 #
 # $repo::                         This can be stable, nightly or a specific version i.e. 1.7
@@ -315,6 +315,8 @@ class foreman (
   Enum['DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'] $telemetry_logger_level = $::foreman::params::telemetry_logger_level,
   Stdlib::Port $dynflow_pool_size = $::foreman::params::dynflow_pool_size,
   String $jobs_service = $::foreman::params::jobs_service,
+  Stdlib::Ensure::Service $jobs_service_ensure = $::foreman::params::jobs_service_ensure,
+  Boolean $jobs_service_enable = $::foreman::params::jobs_service_enable,
   Boolean $hsts_enabled = $::foreman::params::hsts_enabled,
 ) inherits foreman::params {
   if $db_adapter == 'UNSET' {
